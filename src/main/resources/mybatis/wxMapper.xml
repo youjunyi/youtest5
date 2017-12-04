@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tt.repository.WxBatis">
+<select id="list" parameterType="Long" resultType="Map">
+select lc.fwfbh as fwfbh,lc.id as lcid ,lc.* , sj.id as sjid ,sj.*from lctab lc,shouji sj where lc.SHOUJI_ID = sj.id and lc.BIAOZHI !='完成' and user_id =#{userid}
+
+</select>
+<select id="querysywx" parameterType="Map" resultType="Map">
+select lc.fwfbh as fwfbh,lc.id as lcid ,lc.* , sj.id as sjid ,sj.*,jf.*
+from lctab lc INNER JOIN shouji sj LEFT JOIN  jiejuefanan jf  ON lc.SHOUJI_ID = sj.id
+and jf.id = lc.jjfa_id
+
+<if test="name !=null and name != '' "> and sj.name like '%${name}%'  </if>
+<if test=" xlh !=null and xlh != '' "> and sj.jqxlh = #{jqxlh}</if>
+<if test=" imei !=null and imei != '' "> and sj.imei = #{imei}</if>
+<if test=" khdh !=null and khdh != '' "> and sj.dh =  #{dh}</if>
+<if test=" jqlx !=null and jqlx != '' "> and sj.JQXH like '%${JQXH}%'</if>
+<if test=" bxlx !=null and bxlx != '' "> and jf.bzfs = #{bzfs}</if>
+<if test="kssj !=null and kssj != '' ">and lc.kssj >= to_date(#{kssj},'yyyy/mm/dd HH24:MI:SS')</if>
+<if test=" jssj !=null and jssj != '' ">and lc.kssj <![CDATA[ <= to_date(#{jssj},'yyyy/mm/dd HH24:MI:SS')]]></if>
+<if test=" bh !=null and bh != '' "> and lc.bh= #{bh}</if>
+<if test=" fwfbh !=null and fwfbh != '' "> and lc.FWFBH= #{fwfbh}</if>
+</select>
+</mapper>
