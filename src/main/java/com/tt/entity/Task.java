@@ -1,19 +1,14 @@
 package com.tt.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import org.hibernate.validator.constraints.NotBlank;
+
+import javax.persistence.*;
 
 //JPA标识
 @Entity
 @Table(name = "ss_task")
 public class Task  {
+	
 	private String title;
 	private String description;
 	private User user;
